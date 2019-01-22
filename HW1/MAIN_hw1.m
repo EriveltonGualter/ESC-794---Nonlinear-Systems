@@ -20,7 +20,7 @@ R = .1; % Ohm
 param = [A V1 V2 L C R];
 fun = @(t,x) derStableOscilator(t,x, param);
 
-x0 = [3; 30];
+x0 = [0; 25];
 [t, X] =ode45(fun,[0 1000],x0);  
 
 figure('Name','Question 2 - Phase Plane XY','NumberTitle','off');
@@ -30,8 +30,39 @@ plot(X(:,1), X(:,2), 'c');
 plot(X(1,1), X(1,2), '*r');
 plot(X(end,1), X(end,2), 'ok', 'LineWidth', 2);
 
+title('Phase Plane XY');
+ylabel('x_2'); xlabel('x_1');
+legend('','Initial State','Final State');
 
-% Question 3
+axis([-30 30 -30 30])
+
+print('question2a','-depsc')
+
+%% Question 3
+
+figure('Name','Question 3 - Phase Portrait','NumberTitle','off');
+hold on;
+axis equal
+
+xl = 1; yl = 1;
+for x = -xl:0.1:xl
+    for y = -yl:0.1:yl
+        if abs(x) == xl || abs(y) == yl
+            x0 = [x; y];
+            [t, X] =ode45(@derEquation3,[0 20],x0);  
+            plot(X(:,1), X(:,2), 'c'); 
+            plot(X(1,1), X(1,2), '*r');
+            plot(X(end,1), X(end,2), 'ok', 'LineWidth', 2);
+        end
+    end
+end
+
+title('Phase Plane XY');
+ylabel('x_2'); xlabel('x_1');
+legend('','Initial State','Final State');
+print('question3','-depsc')
+
+%% Question 4
 
 A = [0 1; -10 -10];
 B = [0; 0];
@@ -40,7 +71,7 @@ D = 0;
 
 sys = ss(A,B,C,D);
 
-figure('Name','Question 3 - Phase Portrait','NumberTitle','off');
+figure('Name','Question 4 - Phase Portrait','NumberTitle','off');
 hold on;
 axis equal
 
@@ -50,33 +81,20 @@ for x = -xl:0.1:xl
         if abs(x) == xl || abs(y) == yl
             x0 = [x; y];
             [~,T,X] = initial(sys, x0);
-            plot(X(:,1), X(:,2), 'b')        
-        end
-    end
-end
-plot(0,0,'or');
-plot(-1,2,'or');
-plot(1,2,'or');
-axis([-xl xl -yl yl])
-
-%% Question 4
-
-figure('Name','Question 4 - Phase Portrait','NumberTitle','off');
-hold on;
-axis equal
-
-xl = 1; yl = 1;
-for x = -xl:0.1:xl
-    for y = -yl:0.1:yl
-        if abs(x) == xl || abs(y) == yl
-            x0 = [x; y];
-            [t, X] =ode45(@derEquation4,[0 20],x0);  
             plot(X(:,1), X(:,2), 'c'); 
             plot(X(1,1), X(1,2), '*r');
             plot(X(end,1), X(end,2), 'ok', 'LineWidth', 2);
         end
     end
 end
+
+title('Phase Plane XY');
+ylabel('x_2'); xlabel('x_1');
+legend('','Initial State','Final State');
+axis([-xl xl -yl yl])
+
+print('question4','-depsc')
+
 
 %% Question 5
 figure('Name','Question 5 - Phase Portrait','NumberTitle','off');
@@ -104,6 +122,9 @@ end
 
 axis(1.5*[-xl xl -yl yl])
 
+print('question5','-depsc')
+
+
 %% Functions
 function xDer = derStableOscilator(t, x, param)
 
@@ -123,7 +144,7 @@ function xDer = derStableOscilator(t, x, param)
     xDer = [xd1; xd2];
 end
 
-function xDer = derEquation4 (t, x)
+function xDer = derEquation3 (t, x)
     x1 = x(1);
     x2 = x(2);
     

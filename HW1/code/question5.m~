@@ -35,9 +35,7 @@ function question5()
     x2dot = x1 - 2*atan(x1+x2);
     quiver(x1,x2,x1dot, x2dot, 'color', 'cyan')
     
-    plot(xye(1,1), xye(2,1), 'ok', 'LineWidth', 2);
-    plot(xye(1,2), xye(2,2), 'ok', 'LineWidth', 2);
-    plot(xye(1,3), xye(2,3), 'ok', 'LineWidth', 2);
+    plot(xye(1,1), 'ok', 'LineWidth', 2);
     
     print('question5','-depsc')
     

@@ -1,6 +1,4 @@
 % Erivelton Gualter
-% 01/17/2019
-%
 % Nonlinear System - Homework 1 - Question 2
 
 function question2()
@@ -14,7 +12,7 @@ function question2()
     param = [A V1 V2 L C R];
     fun = @(t,x) derStableOscilator(t,x, param);
 
-    x0 = [0; 25];
+    x0 = [0; 5];
     [t, X] =ode45(fun,[0 1000],x0);  
 
     figure('Name','Question 2 - Phase Plane XY','NumberTitle','off');
@@ -27,10 +25,11 @@ function question2()
     title('Phase Plane XY');
     ylabel('x_2'); xlabel('x_1');
     legend('','Initial State','Final State');
+    box on
 
     axis([-30 30 -30 30])
 
-    print('question2a','-depsc')
+    print('question2b','-depsc')
 
     % Function
     function xDer = derStableOscilator(t, x, param)

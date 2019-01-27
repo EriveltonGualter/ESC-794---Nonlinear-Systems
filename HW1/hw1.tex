@@ -1,0 +1,260 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8]{inputenc}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+\graphicspath{ {./code/} }
+
+
+\usepackage{graphicx}
+\usepackage{color}
+
+% Packages to embbed Matlab code
+\usepackage[framed,numbered,autolinebreaks,useliterate]{mcode}
+\usepackage{url,textcomp}
+\setlength{\parindent}{0pt}
+
+
+%opening
+\title{Homework 1}
+\author{Erivelton Gualter dos Santos}
+
+\begin{document}
+
+\date{}
+\maketitle
+
+%%%%%%%%%%%%%%%%%% Question 1 %%%%%%%%%%%%%%%%%%
+\section{Question}
+
+The circuit shown in the figure below contains a nonlinear inductor and is driven by a time-dependent current source. Suppose that the nonlinear inductor is described by $i_L =I_0\sin(k\phi_L)$, where $\phi_L$ is the magnet flux of the inductor and $I_0$ and $k$ are constants. Using $\phi_L$ and $v_C$ as state variables, find the state equations.
+
+\hfill \break
+
+Knowing the capacitor current is related to the capacitor voltage by 
+
+\begin{equation}
+ i_c(t) = C\frac{dv_c(t)}{dt} \label{eq:ic}
+\end{equation}
+
+and the inductor voltage is related to the inductor current by 
+
+\begin{equation}
+ v_l(t) = L\frac{di_l(t)}{dt} \label{eq:vl}
+\end{equation}
+
+and after choosing the state variables as $v_c$ and $\phi_l$, we can find the state space representation. 
+
+Replacing the nonlinear inductor current in equation \ref{eq:vl}, we have:
+
+\begin{eqnarray*}
+ v_l(t) &= L\frac{d}{dt}(I_0\sin(k\phi_l))  \\
+ &= LkI_0\cos(k\phi_l)\dot{\phi}_l
+\end{eqnarray*}
+
+as $v_l=v_c=v_R$, we can write the following equation in terms of state variables:
+
+\begin{eqnarray}
+ v_c(t) = LkI_0\cos(k\phi_l)\dot{\phi}_l \label{eq:dphi}
+\end{eqnarray}
+
+Applying Kirchhoff's current law (KCL) in the circuit, we hav e $i_c = i_s-i_l-i_R$. By replacing the respective quantities:
+
+\begin{equation}
+ i_c = i_s - I_0\sin(k\phi_l) - \frac{v_c}{R} \label{eq:ic2}
+\end{equation}
+
+Therefore, replacing equation \ref{eq:ic2} in equation \ref{eq:ic}: 
+
+\begin{equation}
+i_s - I_0\sin(k\phi_l) - \frac{v_c}{R} = C\frac{dv_c(t)}{dt} \label{eq:dvc}
+\end{equation}
+
+Finally, after reoordering the equations \ref{eq:dphi} and \ref{eq:dvc}:
+
+\begin{equation}
+  \begin{cases}
+    \dot{v}_c = \frac{1}{C} \left(- \frac{v_c}{R} - I_0\sin(k\phi_l)+ i_s\right)\\
+    \dot{\phi}_l = \frac{v_c}{LkI_0\cos(k\phi_l)}
+  \end{cases}
+\end{equation}
+%%%%%%%%%%%%%%%%%% Question 2 %%%%%%%%%%%%%%%%%%
+\section{Question}
+Use Matlab/Simulink to simulate the stable electronic oscillator in Example 8 in Lecture 1. Choose two sets of initial conditions that are different from the ones on pages 28-30 in this lecture, and produce the phase plane (or XY plane) plots and
+plot output responses with the various initial conditions. 
+In your simulation, please choose $A=1.5$, $V_1 =V_2 =1$, $L=1$, $C=1F$, and $R=0.1\Omega$.
+
+\hfill \break
+
+The following figures represent two phase plane for distinct initial condition. The figure \ref{fig:q2a} start at $0,30$, while figure \ref{fig:q2b} start at $0,5$. Both cases contain a closed trajectory, also known as \textbf{limit cycle}. After several tests it was noted the state trajector end up in this limit cycle with radius of $11.5309$.
+
+\begin{figure}[H]
+ \begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{question2a.eps}
+  \caption{Phase plane for $(0,30)$.} \label{fig:q2a}
+ \end{minipage}
+ \begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{question2b.eps}
+  \caption{Phase plane for $(0,5)$.} \label{fig:q2b}
+ \end{minipage}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%% Question 3 %%%%%%%%%%%%%%%%%%
+\section{Question}
+For the following system, find the equilibrium points and determine the type of each isolated equilibrium point:
+
+\begin{eqnarray*}
+\dot{x}_1 &= 2{x}_1 - {x}_1{x}_2 \\
+\dot{x}_2 &= 2{x}^2_1 - {x}_2 
+\end{eqnarray*}
+
+By definition, the following equation must hold:
+
+\begin{eqnarray}
+0 &= 2{x}_1 - {x}_1{x}_2 \label{eq:3a} \\ 
+0 &= 2{x}^2_1 - {x}_2   \label{eq:3b}
+\end{eqnarray}
+
+Replacing Equation \ref{eq:3b} in Equation \ref{eq:3a}, we have:
+
+\begin{eqnarray*}
+0 &= 2{x}_1 - 2{x}^3_1 \\
+0 &= 2{x}_1(1 - {x}^2_1)
+\end{eqnarray*}
+
+Then, there are three solutions for $x_1$ and $x_2$
+
+\begin{equation}
+\begin{bmatrix}
+x_{1e}\\x_{2e}
+\end{bmatrix}=
+\begin{bmatrix}
+ 0 & -1 & 1 \\
+ 0 & 2 & 2 
+\end{bmatrix}
+\end{equation}
+
+Figure \ref{fig:q3 } illustrates the phase portrait for this plant. It contains several state trajectores from initial states varying from $-3\leq x_1\leq 3$ and $-3\leq x_2\leq 3$.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.8\linewidth]{question3.eps}
+  \caption{Phase Portrait.} \label{fig:q3}
+\end{figure}
+
+In order to evaluate the type of each isolated equilibrium point for a nonlinear plant is necessary to examine the region around these equilibrium points. Therefore, a linearization must be performed. Applying a Taylor series about the any point, the following Jacobian matrix were obtained:
+
+\begin{eqnarray*}
+\centering
+\left.\frac{\partial f}{\partial x}\right\vert_{x=xe_1}^{} &= \left(\begin{array}{cc} 2 & 0\\ 0 & -1 \end{array}\right),  \\
+\left.\frac{\partial f}{\partial x}\right\vert_{x=xe_2}^{} &= \left(\begin{array}{cc} 0 & 1\\ -4 & -1 \end{array}\right),\\
+\left.\frac{\partial f}{\partial x}\right\vert_{x=xe_3}^{} &= \left(\begin{array}{cc} 0 & -1\\ 4 & -1 \end{array}\right)
+ \end{eqnarray*}
+
+where the partial deriatives correspond to the Jacobian matrix of the three equilibrium points presented above. Additionally, the following correspond to the Jordan Canoninal form representation of those Jacobian matrix.
+
+\begin{eqnarray*}
+\centering
+J_1 &= \left(\begin{array}{cc} 2 & 0\\ 0 & -1 \end{array}\right), \\
+J_2 &= \left(\begin{array}{cc} -\frac{1}{2}-\frac{\sqrt{15}\,1{}\mathrm{i}}{2} & 0\\ 0 & -\frac{1}{2}+\frac{\sqrt{15}\,1{}\mathrm{i}}{2} \end{array}\right), \\
+J_3 &= \left(\begin{array}{cc} -\frac{1}{2}-\frac{\sqrt{15}\,1{}\mathrm{i}}{2} & 0\\ 0 & -\frac{1}{2}+\frac{\sqrt{15}\,1{}\mathrm{i}}{2} \end{array}\right) \\
+\end{eqnarray*}
+
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.8\linewidth]{question3a.eps}
+  \caption{Phase Portrait for the first equilibrium point.} \label{fig:q3a}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.8\linewidth]{question3b.eps}
+  \caption{Phase Portrait for the second equilibrium point.} \label{fig:q3b}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.8\linewidth]{question3c.eps}
+  \caption{Phase Portrait for the third equilibrium point.} \label{fig:q3c}
+\end{figure}
+
+Therefore, by verifying the position of the eigenvalues or the phase portrait, it is clear that:
+
+\begin{itemize}
+ \item $1^{st}$ eigenvalue is a \textbf{saddle point};
+ \item $2^{nd}$ and $3^{rd}$ eigenvalues are a \textbf{stable focus};
+ \end{itemize}
+
+
+%%%%%%%%%%%%%%%%%% Question 4 %%%%%%%%%%%%%%%%%%
+\section{Question}
+By plotting trajectories starting at different initial conditions, draw the phase portrait of the following LTI systems:
+
+\begin{eqnarray}
+\dot{x}_1 &= {x}_2 \\
+\dot{x}_2 &= -10{x}_1-10{x}_2  
+\end{eqnarray}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.6\linewidth]{question4.eps}
+  \caption{Phase plane for XY.} \label{fig:q4}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%% Question 5 %%%%%%%%%%%%%%%%%%
+\section{Question}
+The phase portrait (or phase-plane plot) of the following system is shown below.
+Mark the arrowheads and discuss the stability of each isolated equilibrium point
+
+
+\begin{equation}
+\dot{x}_1 = {x}_2 
+\end{equation}
+
+\begin{equation}
+\dot{x}_2 = {x}_1-2\tan^{-1}({x}_1+{x}_2) 
+\end{equation}
+
+The equilibria of the system above are $(0, 0)$, $(2.33, 0)$, and $(-2.33, 0)$.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.8\linewidth]{question5.eps}
+  \caption{Phase portrait.} \label{fig:q5}
+\end{figure}
+
+The Jacobian of the system is presented in the following for the respective equilibrium points. 
+
+\begin{eqnarray*}
+    \left.\frac{\partial f}{\partial x}\right\vert_{x=xe_1}^{} &= \left(\begin{array}{cc} 0 & 1\\ -1 & -2 \end{array}\right) \\
+    \left.\frac{\partial f}{\partial x}\right\vert_{x=xe_2}^{} &= \left(\begin{array}{cc} 0 & 1\\ \frac{20}{29} & -\frac{9}{29} \end{array}\right) \\
+    \left.\frac{\partial f}{\partial x}\right\vert_{x=xe_3}^{} &= \left(\begin{array}{cc} 0 & 1\\ \frac{20}{29} & -\frac{9}{29} \end{array}\right) 
+\end{eqnarray*}
+
+Then, the Jordan canonical matrix form is:
+
+\begin{eqnarray*}
+J_1 &= \left(\begin{array}{cc} -1 & 1\\ 0 & -1 \end{array}\right) \\
+J_2 &= \left(\begin{array}{cc} -1 & 0\\ 0 & \frac{20}{29} \end{array}\right) \\
+J_3 &= \left(\begin{array}{cc} -1 & 0\\ 0 & \frac{20}{29} \end{array}\right)
+\end{eqnarray*}
+
+Therefore, according to the location of the eigenvalues and also the direction of the arrowheads, it is well known that: 
+\begin{itemize}
+ \item $1^{st}$ eigenvalue is a \textbf{stable node};
+ \item $2^{nd}$ and $3^{rd}$ eigenvalues are a \textbf{saddle node};
+ \end{itemize}
+ 
+
+\section{Matlab Codes}
+
+\lstinputlisting{code/question2.m}
+\lstinputlisting{code/question3.m}
+\lstinputlisting{code/question4.m}
+\lstinputlisting{code/question5.m}
+
+\end{document}

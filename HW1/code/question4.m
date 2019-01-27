@@ -1,6 +1,4 @@
 % Erivelton Gualter
-% 01/17/2019
-%
 % Nonlinear System - Homework 1 - Question 4
 
 function question4()
@@ -21,17 +19,20 @@ function question4()
             if abs(x) == xl || abs(y) == yl
                 x0 = [x; y];
                 [~,T,X] = initial(sys, x0);
-                plot(X(:,1), X(:,2), 'c'); 
-                plot(X(1,1), X(1,2), '*r');
-                plot(X(end,1), X(end,2), 'ok', 'LineWidth', 2);
+                plot(X(:,1), X(:,2), 'b'); 
             end
         end
     end
+    
+    [x1, x2] = meshgrid(-5:0.5:5, -5:.5:5);
+    x1dot = A(1,1).*x1 + A(1,2).*x2;
+    x2dot = A(2,1).*x1 + A(2,2).*x2;
+    quiver(x1,x2,x1dot, x2dot, 'color', 'cyan')
 
     title('Phase Portrait');
     ylabel('x_2'); xlabel('x_1');
-    legend('','Initial State','Final State');
-    axis(1.5*[-xl xl -yl yl])
+    axis([-xl xl -yl yl])
+    box on
 
     print('question4','-depsc')
 end

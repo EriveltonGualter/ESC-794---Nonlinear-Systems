@@ -1,0 +1,58 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8]{inputenc}
+
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{graphicx}
+
+
+\usepackage{graphicx}
+\usepackage{color}
+
+% Packages to embbed Matlab code
+\usepackage[framed,numbered,autolinebreaks,useliterate]{mcode}
+\usepackage{url,textcomp}
+\setlength{\parindent}{0pt}
+
+
+%opening
+\title{Homework 4}
+\author{Erivelton Gualter dos Santos}
+
+\begin{document}
+
+\date{}
+\maketitle
+
+\section{Problem}
+
+Note the Figures 2, 3 and 4 contains a limit cycle. Therefore, the condition of existence of limit cycle is $a$ diffent than 0. 
+
+\lstinputlisting{MAIN_hw4.m}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.8\linewidth]{system0.eps}
+  \caption{Phase Portrait for a = 0.} \label{fig:s0}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.8\linewidth]{system1.eps}
+  \caption{Phase Portrait for a = 1.} \label{fig:s1}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.8\linewidth]{system2.eps}
+  \caption{Phase Portrait for a = 2.} \label{fig:s2}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.8\linewidth]{system4.eps}
+  \caption{Phase Portrait for a = 4.} \label{fig:s4}
+\end{figure}
+
+\end{document}
+    

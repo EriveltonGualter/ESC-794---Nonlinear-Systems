@@ -25,6 +25,27 @@ subplot(212); box on;
     
 print('fig_question2', '-dpng');
 
+%% Question 5
+X0 = [0; 0];
+
+fun = @(t, X) (fcnODE5(t, X));
+[t,X] = ode45(fun,[0 5], X0);   
+figure;
+subplot(211); hold on; box on;
+    plot(t, X(:,1), 'LineWidth', 2); 
+    plot(t, pi/2*ones(size(t)), 'LineWidth', 2); 
+    legend('Output', 'Reference');
+    ylabel('Theta');
+    title('Question 5');
+    
+subplot(212); box on;
+    plot(t, X(:,2), 'LineWidth', 2); 
+    xlabel('Time, s');
+    ylabel('Angular Velocity');
+  
+print('fig_question5', '-dpng');
+
+%% Functions
 function dxdt = fcnODE2(t, X, Kp, Kd)
     % Unpack
     x1 = X(1);
@@ -51,27 +72,6 @@ function dxdt = fcnODE2(t, X, Kp, Kd)
     
     dxdt = [xd1; xd2];
 end
-
-%% Question 5
-X0 = [0; 0];
-
-fun = @(t, X) (fcnODE5(t, X));
-[t,X] = ode45(fun,[0 5], X0);   
-figure;
-subplot(211); hold on; box on;
-    plot(t, X(:,1), 'LineWidth', 2); 
-    plot(t, pi/2*ones(size(t)), 'LineWidth', 2); 
-    legend('Output', 'Reference');
-    ylabel('Theta');
-    title('Question 5');
-    
-subplot(212); box on;
-    plot(t, X(:,2), 'LineWidth', 2); 
-    xlabel('Time, s');
-    ylabel('Angular Velocity');
-  
-print('fig_question5', '-dpng');
-
 
 function dxdt = fcnODE5(t, X)
     
